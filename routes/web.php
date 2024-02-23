@@ -1,5 +1,8 @@
 <?php
 
+use App\Http\Controllers\PageController;
+use App\Http\Controllers\PhotoController;
+use App\Http\Controllers\WelcomeController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -41,4 +44,18 @@ Route::get('/articles/{id}', function($articleId) {
     return "Halaman Artikel dengan ID " . $articleId;
 });
 
-Route::redirect('/', '/hello'); // Berfungsi unuk melakukan direct otomatis menuju halaman yang ditentukan
+// Route::redirect('/', '/hello'); // Berfungsi unuk melakukan direct otomatis menuju halaman yang ditentukan
+
+
+// Routing Menggunakan Controller
+Route::get('/helloController', [WelcomeController::class, 'hello']);
+Route::get('/indexController', [PageController::class, 'index']);
+Route::get('/aboutController', [PageController::class, 'about']);
+Route::get('/articlesController/{article}', [PageController::class, 'articles']);
+
+// Routing PhotoController
+Route::resource('photos', PhotoController::class);
+
+// Membatasi crud PhotoController
+Route::resource('photos', PhotoController::class)->only(['index', 'show']);
+Route::resource('photos', PhotoController::class)->except(['create', 'store', 'update', 'destroy']);
