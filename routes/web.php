@@ -59,3 +59,13 @@ Route::resource('photos', PhotoController::class);
 // Membatasi crud PhotoController
 Route::resource('photos', PhotoController::class)->only(['index', 'show']);
 Route::resource('photos', PhotoController::class)->except(['create', 'store', 'update', 'destroy']);
+
+// Routing View
+Route::get('/greeting', function() {
+    return view('blog.hello', [
+        'name' => 'Gaco Razan Kamil'
+    ]);
+});
+
+// Routing View Controller
+Route::get('/greetingController', [WelcomeController::class, 'greeting']);
